@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <queries>
+        <!-- To check apps that can handle geo: URIs -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="geo" />
+        </intent>
 
+        <!-- Optional: Explicitly include Google Maps -->
+        <package android:name="com.google.android.apps.maps" />
+    </queries>
     <application
         android:name=".CityFinderApplication"
         android:allowBackup="false"
