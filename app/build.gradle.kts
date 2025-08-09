@@ -61,4 +61,6 @@ dependencies {
   ksp(libs.dagger.hilt.android.compiler)
 
   implementation(libs.gson)
+
+  implementation(libs.kotlinx.collections.immutable)
 }
