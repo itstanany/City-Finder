@@ -26,7 +26,10 @@ class MainActivity : ComponentActivity() {
     enableEdgeToEdge()
     setContent {
       CityFinderTheme {
-        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+        Scaffold(
+          modifier = Modifier
+            .fillMaxSize()
+        ) { innerPadding ->
           CitiesScreen(
             viewModel = viewModel,
             modifier = Modifier.padding(innerPadding)

@@ -1,10 +1,8 @@
 package com.itstanany.cityfinder.presentation.ui
 
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.itstanany.cityfinder.presentation.stateHolder.CityScreenState
@@ -20,25 +18,31 @@ fun CitiesScreen(
   LaunchedEffect(Unit) {
     viewModel.handleUiEvent(CityScreenUiEvents.LoadData)
   }
-  when (val state = uiState.value) {
-    is CityScreenState.Error -> {
+  Box(
+    modifier = modifier
+  ) {
+    when (val state = uiState.value) {
+      is CityScreenState.Error -> {
 //      TODO()
-    }
-    CityScreenState.Idle -> {
-//      TODO()
-    }
-    CityScreenState.Loading -> {
-//      TODO()
-    }
-    is CityScreenState.Success -> {
-
-      LazyColumn {
-        items(state.cities.size) {
-          Text(text = state.cities[it].name)
-        }
       }
 
+      CityScreenState.Idle -> {
+//      TODO()
+      }
+
+      CityScreenState.Loading -> {
+//      TODO()
+      }
+
+      is CityScreenState.Success -> {
+        CityScreenContent(
+          items = state.cities,
+          onQueryChanged = {
+            viewModel.handleUiEvent(CityScreenUiEvents.SearchQueryChanged(it))
+          },
+          searchQuery = state.query
+        )
+      }
     }
   }
-
 }

@@ -6,7 +6,10 @@ import kotlinx.collections.immutable.ImmutableList
 sealed class CityScreenState {
   data object Idle: CityScreenState()
   data object Loading : CityScreenState()
-  data class Success(val cities: ImmutableList<City>) : CityScreenState()
+  data class Success(
+    val cities: ImmutableList<City>,
+    val query: String = ""
+  ) : CityScreenState()
   data class Error(val message: String) : CityScreenState()
 }
 
