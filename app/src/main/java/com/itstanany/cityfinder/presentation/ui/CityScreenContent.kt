@@ -31,6 +31,19 @@ import com.itstanany.cityfinder.presentation.utils.openLocationInMaps
 import com.itstanany.cityfinder.ui.theme.CityFinderTheme
 import kotlinx.collections.immutable.ImmutableList
 
+/**
+ * Composable function that displays the content of the city screen.
+ *
+ * This function displays a list of cities, grouped by their starting letter,
+ * along with a search bar to filter the cities.
+ *
+ * @param items The list of city groups to display.
+ * @param totalCities The total number of cities available.
+ * @param onQueryChanged A callback function that is invoked when the search query changes.
+ * @param searchQuery The current search query.
+ * @param modifier The modifier to apply to this composable.
+ * @param isLoadingSearch A boolean indicating whether the search is currently loading.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CityScreenContent(
