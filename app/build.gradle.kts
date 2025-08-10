@@ -63,4 +63,6 @@ dependencies {
   implementation(libs.gson)
 
   implementation(libs.kotlinx.collections.immutable)
+  implementation(libs.coil.compose)
+
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.itstanany.cityfinder.domain.usecase.GetAllCitiesUseCase
 import com.itstanany.cityfinder.domain.usecase.SearchCitiesByPrefixUseCase
+import com.itstanany.cityfinder.presentation.model.CityGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.collections.immutable.toImmutableList
@@ -24,9 +25,25 @@ class CityScreenViewModel @Inject constructor(
       is CityScreenUiEvents.LoadData -> {
         viewModelScope.launch {
           val result = getAllCitiesUseCase()
-          _uiState.value = CityScreenState.Success(result.toImmutableList())
+          val mappedResult = result
+            .groupBy { it.name.first().uppercaseChar() }
+            .map { (letter, cities) -> CityGroup(letter, cities.toImmutableList()) }
+            // if we don't have invariant that the result is always sorted
+            //,sortedBy { it.letter }
+            .toImmutableList()
+
+          if (_uiState.value is CityScreenState.Success) {
+            _uiState.update {
+              (it as CityScreenState.Success).copy(
+                cities = mappedResult
+              )
+            }
+          } else {
+            _uiState.value = CityScreenState.Success(cities = mappedResult)
+          }
         }
       }
+
       is CityScreenUiEvents.SearchQueryChanged -> {
         _uiState.update {
           if (it is CityScreenState.Success) {
@@ -39,7 +56,14 @@ class CityScreenViewModel @Inject constructor(
           val result = searchCitiesByPrefixUseCase(events.query)
           if (_uiState.value is CityScreenState.Success) {
             _uiState.update {
-              (it as CityScreenState.Success).copy(cities = result.toImmutableList())
+              (it as CityScreenState.Success).copy(
+                cities = result
+                  .groupBy { it.name.first().uppercaseChar() }
+                  .map { (letter, cities) -> CityGroup(letter, cities.toImmutableList()) }
+                  // if we don't have invariant that the result is always sorted
+                  //,sortedBy { it.letter }
+                  .toImmutableList()
+              )
             }
           }
 
