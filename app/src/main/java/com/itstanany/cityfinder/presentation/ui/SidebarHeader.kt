@@ -14,8 +14,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.itstanany.cityfinder.ui.theme.CityFinderTheme
 
+/**
+ * Composable function that displays a header for a section in the sidebar.
+ * The header consists of a circular background with a letter in the center.
+ *
+ * @param letter The letter to display in the header.
+ */
 @Composable
 fun SidebarHeader(letter: Char) {
   Row(
@@ -37,5 +45,13 @@ fun SidebarHeader(letter: Char) {
       )
     }
     Spacer(modifier = Modifier.weight(1f)) // Empty space to align with city column
+  }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SidebarHeaderPreview() {
+  CityFinderTheme {
+    SidebarHeader('A')
   }
 }

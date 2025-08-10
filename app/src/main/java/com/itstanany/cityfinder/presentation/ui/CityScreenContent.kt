@@ -147,7 +147,7 @@ fun CityScreenContent(
 }
 
 @OptIn(ExperimentalFoundationApi::class)
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun CityScreenContentPreview() {
   CityFinderTheme {

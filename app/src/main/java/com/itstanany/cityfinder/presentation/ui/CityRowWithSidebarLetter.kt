@@ -21,8 +21,22 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import com.itstanany.cityfinder.domain.model.City
+import com.itstanany.cityfinder.presentation.model.city1Mock
+import com.itstanany.cityfinder.ui.theme.CityFinderTheme
 
+/**
+ * A Composable function that displays a row for a city with a sidebar letter.
+ *
+ * This Composable is used to display each city in the list. It shows the city's country code
+ * in a circular badge, the city name, country code, and its latitude and longitude.
+ * A vertical line is drawn on the left side, acting as a visual sidebar element.
+ * The entire row is clickable.
+ *
+ * @param city The [City] object containing the data to display.
+ * @param onClick A lambda function to be executed when the city row is clicked.
+ */
 @Composable
 fun CityRowWithSidebarLetter(
   city: City,
@@ -86,5 +100,13 @@ fun CityRowWithSidebarLetter(
         )
       }
     }
+  }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CityRowWithSidebarLetterPreview() {
+  CityFinderTheme {
+    CityRowWithSidebarLetter(city = city1Mock, onClick = {})
   }
 }
