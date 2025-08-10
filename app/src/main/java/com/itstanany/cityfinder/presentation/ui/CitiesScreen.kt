@@ -55,7 +55,7 @@ fun CitiesScreen(
     rememberPullRefreshState(
       refreshing = false,
       onRefresh = {
-        viewModel.handleUiEvent(CityScreenUiEvents.LoadData)
+        viewModel.handleUiEvent(CityScreenUiEvents.RefreshData)
       }
     )
   Box(
@@ -102,7 +102,7 @@ fun CitiesScreen(
       CityScreenState.Loading -> {
         CircularProgressIndicator(
           modifier = Modifier
-            .align(androidx.compose.ui.Alignment.Center)
+            .align(Alignment.Center)
         )
       }
 
@@ -115,6 +115,15 @@ fun CitiesScreen(
           searchQuery = state.query,
           totalCities = state.totalCities,
         )
+
+        if (state.isRefreshing) {
+          // we can improve UX here by delaying the refreshing animation for some fraction of time
+          // so if response is fast enough to not showing loading indicator, it will be better
+          CircularProgressIndicator(
+            modifier = Modifier
+              .align(Alignment.Center)
+          )
+        }
       }
     }
 

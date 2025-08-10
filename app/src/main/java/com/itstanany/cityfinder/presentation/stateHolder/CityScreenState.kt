@@ -10,7 +10,8 @@ sealed class CityScreenState {
     val cities: ImmutableList<CityGroup>,
     val query: String = "",
     val totalCities: Int,
-    val isLoadingSearch: Boolean = false
+    val isLoadingSearch: Boolean = false,
+    val isRefreshing: Boolean = false
   ) : CityScreenState()
   data class Error(val message: String) : CityScreenState()
 }
@@ -18,4 +19,5 @@ sealed class CityScreenState {
 sealed class CityScreenUiEvents {
   data class SearchQueryChanged(val query: String) : CityScreenUiEvents()
   data object LoadData : CityScreenUiEvents()
+  data object RefreshData : CityScreenUiEvents()
 }
