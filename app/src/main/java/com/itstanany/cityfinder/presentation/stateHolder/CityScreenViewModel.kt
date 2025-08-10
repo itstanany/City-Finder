@@ -102,6 +102,18 @@ class CityScreenViewModel @Inject constructor(
     }
   }
 
+  /**
+   * Loads city data from the `getAllCitiesUseCase`.
+   *
+   * This function launches a coroutine in the `viewModelScope` to asynchronously fetch city data.
+   * On successful data retrieval:
+   *  - The data is grouped by the first letter of the city name.
+   *  - If the current UI state is already `Success`, it updates the existing state with the new data,
+   *    total city count, and sets `isRefreshing` to false.
+   *  - Otherwise, it sets the UI state to a new `Success` state with the fetched data and total city count.
+   * On error:
+   *  - It updates the UI state to `Error` with an appropriate error message obtained from `getErrMsg`.
+   */
   private fun loadData() {
     viewModelScope.launch {
       val result = getAllCitiesUseCase()
@@ -138,6 +150,15 @@ class CityScreenViewModel @Inject constructor(
     }
   }
 
+  /**
+   * Returns a user-friendly error message based on the provided [AppExceptions].
+   *
+   * @param exception The [AppExceptions] instance representing the error.
+   * @return A [String] containing the error message.
+   *         - For [AppExceptions.FileLoadingException], it returns a predefined string for file loading errors.
+   *         - For [AppExceptions.ParsingException], it returns a predefined string for data parsing errors.
+   *         - For [AppExceptions.OtherException], it returns the exception's message, or an empty string if the message is null.
+   */
   private fun getErrMsg(exception: AppExceptions) = when (exception) {
     is AppExceptions.FileLoadingException -> {
       context.getString(R.string.error_in_loading_data_please_try_again)

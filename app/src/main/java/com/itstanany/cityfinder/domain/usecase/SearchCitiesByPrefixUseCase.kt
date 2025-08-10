@@ -5,6 +5,22 @@ import com.itstanany.cityfinder.domain.model.Result
 import com.itstanany.cityfinder.domain.repository.CityRepository
 import jakarta.inject.Inject
 
+/**
+ * Use case for searching cities by a given prefix.
+ *
+ * This use case encapsulates the business logic for retrieving a list of cities
+ * whose names start with the specified prefix. It delegates the actual data
+ * retrieval to a [CityRepository].
+ *
+ * The current implementation assumes that the underlying data source
+ * (accessed via [CityRepository.searchCitiesByPrefix]) returns cities
+ * already sorted alphabetically by name. If this assumption is not met,
+ * the commented-out code block within the `invoke` operator can be used
+ * to sort the results client-side by city name (case-insensitive) and then
+ * by country code (case-insensitive) as a secondary sorting criterion.
+ *
+ * @param cityRepository The repository responsible for fetching city data.
+ */
 class SearchCitiesByPrefixUseCase @Inject constructor(
   private val cityRepository: CityRepository
 ) {
@@ -19,5 +35,4 @@ class SearchCitiesByPrefixUseCase @Inject constructor(
                 .thenBy { it.countryCode.lowercase() })
      */
   }
-
 }
