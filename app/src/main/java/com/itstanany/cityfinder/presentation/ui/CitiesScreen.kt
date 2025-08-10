@@ -1,6 +1,8 @@
 package com.itstanany.cityfinder.presentation.ui
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -20,6 +22,7 @@ fun CitiesScreen(
   }
   Box(
     modifier = modifier
+      .fillMaxSize()
   ) {
     when (val state = uiState.value) {
       is CityScreenState.Error -> {
@@ -31,7 +34,10 @@ fun CitiesScreen(
       }
 
       CityScreenState.Loading -> {
-//      TODO()
+        CircularProgressIndicator(
+          modifier = Modifier
+            .align(androidx.compose.ui.Alignment.Center)
+        )
       }
 
       is CityScreenState.Success -> {
@@ -41,7 +47,7 @@ fun CitiesScreen(
             viewModel.handleUiEvent(CityScreenUiEvents.SearchQueryChanged(it))
           },
           searchQuery = state.query,
-          totalCities = state.totalCities
+          totalCities = state.totalCities,
         )
       }
     }

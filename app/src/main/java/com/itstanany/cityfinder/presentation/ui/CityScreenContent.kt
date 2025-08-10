@@ -2,12 +2,14 @@ package com.itstanany.cityfinder.presentation.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -36,7 +38,8 @@ fun CityScreenContent(
   totalCities: Int,
   onQueryChanged: (String) -> Unit,
   searchQuery: String,
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
+  isLoadingSearch: Boolean = false
 ) {
   val context = LocalContext.current
 
@@ -69,48 +72,61 @@ fun CityScreenContent(
       )
     }
   ) { innerPadding ->
-    LazyColumn(
-      modifier = Modifier
-        .padding(innerPadding)
-        .padding(horizontal = 12.dp)
-        .fillMaxSize()
-    ) {
-      item {
-        Column {
-          Text(
-            stringResource(R.string.city_search),
-            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = Bold),
-            modifier = Modifier.padding(vertical = 16.dp)
-          )
-
-          Text(
-            stringResource(R.string.cities, totalCities),
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-              .fillMaxWidth()
-              .padding(bottom = 22.dp)
-          )
-        }
+    if (isLoadingSearch) {
+      Box(
+        modifier = Modifier
+          .fillMaxSize()
+          .padding(innerPadding)
+      ) {
+        CircularProgressIndicator(
+          modifier = Modifier
+            .align(androidx.compose.ui.Alignment.Center)
+        )
       }
+    } else {
+      LazyColumn(
+        modifier = Modifier
+          .padding(innerPadding)
+          .padding(horizontal = 12.dp)
+          .fillMaxSize()
+      ) {
+        item {
+          Column {
+            Text(
+              stringResource(R.string.city_search),
+              style = MaterialTheme.typography.headlineLarge.copy(fontWeight = Bold),
+              modifier = Modifier.padding(vertical = 16.dp)
+            )
 
-      items.forEach { group ->
-        stickyHeader {
-          SidebarHeader(
-            letter = group.letter
-          )
+            Text(
+              stringResource(R.string.cities, totalCities),
+              textAlign = TextAlign.Center,
+              modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 22.dp)
+            )
+          }
         }
-        items(group.cities.size) { index ->
-          CityRowWithSidebarLetter(
-            city = group.cities[index],
-            onClick = {
-              openLocationInMaps(
-                context,
-                group.cities[index].latitude,
-                group.cities[index].longitude,
-                group.cities[index].name
-              )
-            }
-          )
+
+        items.forEach { group ->
+          stickyHeader {
+            SidebarHeader(
+              letter = group.letter
+            )
+          }
+          items(group.cities.size) { index ->
+            CityRowWithSidebarLetter(
+              city = group.cities[index],
+              onClick = {
+                openLocationInMaps(
+                  context,
+                  group.cities[index].latitude,
+                  group.cities[index].longitude,
+                  group.cities[index].name
+                )
+              }
+            )
+          }
         }
       }
     }

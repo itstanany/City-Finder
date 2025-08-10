@@ -8,6 +8,7 @@ import com.itstanany.cityfinder.presentation.model.CityGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -23,6 +24,7 @@ class CityScreenViewModel @Inject constructor(
   fun handleUiEvent(events: CityScreenUiEvents) {
     when (events) {
       is CityScreenUiEvents.LoadData -> {
+        _uiState.value = CityScreenState.Loading
         viewModelScope.launch {
           val result = getAllCitiesUseCase()
           val mappedResult = result
@@ -48,7 +50,10 @@ class CityScreenViewModel @Inject constructor(
       is CityScreenUiEvents.SearchQueryChanged -> {
         _uiState.update {
           if (it is CityScreenState.Success) {
-            it.copy(query = events.query)
+            it.copy(
+              query = events.query,
+              isLoadingSearch = true
+              )
           } else {
             it
           }
@@ -64,7 +69,8 @@ class CityScreenViewModel @Inject constructor(
                   // if we don't have invariant that the result is always sorted
                   //,sortedBy { it.letter }
                   .toImmutableList(),
-                totalCities = result.size
+                totalCities = result.size,
+                isLoadingSearch = false
               )
             }
           }
