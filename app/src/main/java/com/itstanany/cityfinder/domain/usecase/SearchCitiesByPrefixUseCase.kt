@@ -1,13 +1,14 @@
 package com.itstanany.cityfinder.domain.usecase
 
 import com.itstanany.cityfinder.domain.model.City
+import com.itstanany.cityfinder.domain.model.Result
 import com.itstanany.cityfinder.domain.repository.CityRepository
 import jakarta.inject.Inject
 
 class SearchCitiesByPrefixUseCase @Inject constructor(
   private val cityRepository: CityRepository
 ) {
-  suspend operator fun invoke(prefix: String): List<City> {
+  suspend operator fun invoke(prefix: String): Result<List<City>> {
     return cityRepository.searchCitiesByPrefix(prefix)
     // IMPORTANT NOTE:
     // enhancement if we don't have a guarantee that the result is sorted by name from the source

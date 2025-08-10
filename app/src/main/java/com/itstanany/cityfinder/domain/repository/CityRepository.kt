@@ -1,6 +1,7 @@
 package com.itstanany.cityfinder.domain.repository
 
 import com.itstanany.cityfinder.domain.model.City
+import com.itstanany.cityfinder.domain.model.Result
 
 interface CityRepository {
 
@@ -9,7 +10,7 @@ interface CityRepository {
    *
    * @return A list of [City] objects representing all available cities.
    */
-  suspend fun getAllCities(): List<City>
+  suspend fun getAllCities(): Result<List<City>>
 
   /**
    * Performs a case-insensitive search for cities whose names start with the given prefix.
@@ -17,5 +18,5 @@ interface CityRepository {
    * @param prefix The prefix string to search for.
    * @return A list of [City] objects that match the prefix. Returns an empty list if no cities match or the prefix is empty.
    */
-  suspend fun searchCitiesByPrefix(prefix: String): List<City>
+  suspend fun searchCitiesByPrefix(prefix: String): Result<List<City>>
 }
