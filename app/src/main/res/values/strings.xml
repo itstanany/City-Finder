@@ -5,4 +5,6 @@
     <string name="city_search">City Search</string>
     <string name="cities">%1$d Cities</string>
     <string name="please_pull_to_refresh">Please, pull to refresh!</string>
+    <string name="error_in_loading_data_please_try_again">Error in loading data, Please try again!</string>
+    <string name="error_in_parsing_data_please_try_again">Error in parsing data, Please try again!</string>
 </resources>

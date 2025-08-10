@@ -1,13 +1,25 @@
 package com.itstanany.cityfinder.domain.usecase
 
 import com.itstanany.cityfinder.domain.model.City
+import com.itstanany.cityfinder.domain.model.Result
 import com.itstanany.cityfinder.domain.repository.CityRepository
 import jakarta.inject.Inject
 
+/**
+ * Use case for retrieving all cities.
+ *
+ * This class encapsulates the business logic for fetching a list of all available cities
+ * from the `CityRepository`.
+ *
+ * The current implementation assumes that the data source provides cities already sorted
+ * alphabetically by name. If this guarantee is not present, the commented-out code
+ * block provides an example of how to sort the cities by name and then by country code
+ * after retrieval.
+ */
 class GetAllCitiesUseCase @Inject constructor(
   private val cityRepository: CityRepository
 ) {
-  suspend operator fun invoke(): List<City> {
+  suspend operator fun invoke(): Result<List<City>> {
     return cityRepository.getAllCities()
     // IMPORTANT NOTE:
     // enhancement if we don't have a guarantee that the result is sorted by name from the source
@@ -18,5 +30,4 @@ class GetAllCitiesUseCase @Inject constructor(
                       .thenBy { it.countryCode.lowercase() })
      */
   }
-
 }

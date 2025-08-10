@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -84,7 +85,10 @@ fun CitiesScreen(
             Text(
               state.message,
               style = MaterialTheme.typography.bodyLarge,
-              modifier = Modifier.padding(top = 16.dp, bottom = 18.dp)
+              modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp, bottom = 18.dp, start = 24.dp, end = 24.dp),
+              textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
           }
 
