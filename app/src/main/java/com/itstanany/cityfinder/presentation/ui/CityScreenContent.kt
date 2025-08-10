@@ -19,11 +19,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.itstanany.cityfinder.R
 import com.itstanany.cityfinder.presentation.model.CityGroup
+import com.itstanany.cityfinder.presentation.model.itemsMock
 import com.itstanany.cityfinder.presentation.utils.openLocationInMaps
+import com.itstanany.cityfinder.ui.theme.CityFinderTheme
 import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -111,5 +114,19 @@ fun CityScreenContent(
         }
       }
     }
+  }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Preview
+@Composable
+fun CityScreenContentPreview() {
+  CityFinderTheme {
+    CityScreenContent(
+      items = itemsMock,
+      totalCities = 3,
+      onQueryChanged = {},
+      searchQuery = ""
+    )
   }
 }
