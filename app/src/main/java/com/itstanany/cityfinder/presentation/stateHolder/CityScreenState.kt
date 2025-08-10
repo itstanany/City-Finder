@@ -1,14 +1,16 @@
 package com.itstanany.cityfinder.presentation.stateHolder
 
-import com.itstanany.cityfinder.domain.model.City
+import com.itstanany.cityfinder.presentation.model.CityGroup
 import kotlinx.collections.immutable.ImmutableList
 
 sealed class CityScreenState {
   data object Idle: CityScreenState()
   data object Loading : CityScreenState()
   data class Success(
-    val cities: ImmutableList<City>,
-    val query: String = ""
+    val cities: ImmutableList<CityGroup>,
+    val query: String = "",
+    val totalCities: Int,
+    val isLoadingSearch: Boolean = false
   ) : CityScreenState()
   data class Error(val message: String) : CityScreenState()
 }

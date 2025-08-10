@@ -4,9 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.itstanany.cityfinder.domain.usecase.GetAllCitiesUseCase
 import com.itstanany.cityfinder.domain.usecase.SearchCitiesByPrefixUseCase
+import com.itstanany.cityfinder.presentation.model.CityGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -22,15 +24,36 @@ class CityScreenViewModel @Inject constructor(
   fun handleUiEvent(events: CityScreenUiEvents) {
     when (events) {
       is CityScreenUiEvents.LoadData -> {
+        _uiState.value = CityScreenState.Loading
         viewModelScope.launch {
           val result = getAllCitiesUseCase()
-          _uiState.value = CityScreenState.Success(result.toImmutableList())
+          val mappedResult = result
+            .groupBy { it.name.first().uppercaseChar() }
+            .map { (letter, cities) -> CityGroup(letter, cities.toImmutableList()) }
+            // if we don't have invariant that the result is always sorted
+            //,sortedBy { it.letter }
+            .toImmutableList()
+
+          if (_uiState.value is CityScreenState.Success) {
+            _uiState.update {
+              (it as CityScreenState.Success).copy(
+                cities = mappedResult,
+                totalCities = result.size
+              )
+            }
+          } else {
+            _uiState.value = CityScreenState.Success(cities = mappedResult, totalCities = result.size)
+          }
         }
       }
+
       is CityScreenUiEvents.SearchQueryChanged -> {
         _uiState.update {
           if (it is CityScreenState.Success) {
-            it.copy(query = events.query)
+            it.copy(
+              query = events.query,
+              isLoadingSearch = true
+              )
           } else {
             it
           }
@@ -39,7 +62,16 @@ class CityScreenViewModel @Inject constructor(
           val result = searchCitiesByPrefixUseCase(events.query)
           if (_uiState.value is CityScreenState.Success) {
             _uiState.update {
-              (it as CityScreenState.Success).copy(cities = result.toImmutableList())
+              (it as CityScreenState.Success).copy(
+                cities = result
+                  .groupBy { it.name.first().uppercaseChar() }
+                  .map { (letter, cities) -> CityGroup(letter, cities.toImmutableList()) }
+                  // if we don't have invariant that the result is always sorted
+                  //,sortedBy { it.letter }
+                  .toImmutableList(),
+                totalCities = result.size,
+                isLoadingSearch = false
+              )
             }
           }
 
