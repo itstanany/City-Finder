@@ -1,21 +1,26 @@
 package com.itstanany.cityfinder.presentation.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
+import com.itstanany.cityfinder.R
 import com.itstanany.cityfinder.presentation.model.CityGroup
 import com.itstanany.cityfinder.presentation.utils.openLocationInMaps
-import kotlin.math.min
 import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -38,8 +43,22 @@ fun CityScreenContent(
         },
         modifier = Modifier
           .fillMaxWidth()
+          .background(MaterialTheme.colorScheme.onPrimary)
           .padding(16.dp),
-        label = { Text("Search") }
+        placeholder = { Text(stringResource(R.string.search)) },
+        textStyle = MaterialTheme.typography.bodyLarge,
+        singleLine = true,
+        leadingIcon = {
+          AsyncImage(
+            model = R.drawable.ic_search,
+            contentDescription = null,
+            modifier = Modifier.size(20.dp)
+          )
+        },
+        colors = OutlinedTextFieldDefaults.colors().copy(
+          unfocusedContainerColor = MaterialTheme.colorScheme.background
+        ),
+        shape = MaterialTheme.shapes.medium
       )
     }
   ) { innerPadding ->
