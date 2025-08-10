@@ -28,6 +28,19 @@ import com.itstanany.cityfinder.presentation.stateHolder.CityScreenState
 import com.itstanany.cityfinder.presentation.stateHolder.CityScreenUiEvents
 import com.itstanany.cityfinder.presentation.stateHolder.CityScreenViewModel
 
+/**
+ * Composable function that represents the main screen for displaying a list of cities.
+ * It observes the UI state from the [viewModel] and renders different content based on the state:
+ * - Loading: Shows a circular progress indicator.
+ * - Error: Displays an error message and an error icon, prompting the user to pull to refresh.
+ * - Success: Renders the [CityScreenContent] with the list of cities.
+ * - Idle: Renders nothing.
+ *
+ * The screen supports pull-to-refresh functionality to reload the city data.
+ *
+ * @param viewModel The [CityScreenViewModel] responsible for managing the screen's state and logic.
+ * @param modifier The [Modifier] to be applied to the root Composable of this screen.
+ */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CitiesScreen(
