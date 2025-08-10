@@ -2,6 +2,7 @@ package com.itstanany.cityfinder.presentation.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight.Companion.Bold
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.itstanany.cityfinder.R
@@ -27,6 +30,7 @@ import kotlinx.collections.immutable.ImmutableList
 @Composable
 fun CityScreenContent(
   items: ImmutableList<CityGroup>,
+  totalCities: Int,
   onQueryChanged: (String) -> Unit,
   searchQuery: String,
   modifier: Modifier = Modifier
@@ -68,6 +72,24 @@ fun CityScreenContent(
         .padding(horizontal = 12.dp)
         .fillMaxSize()
     ) {
+      item {
+        Column {
+          Text(
+            stringResource(R.string.city_search),
+            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = Bold),
+            modifier = Modifier.padding(vertical = 16.dp)
+          )
+
+          Text(
+            stringResource(R.string.cities, totalCities),
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+              .fillMaxWidth()
+              .padding(bottom = 22.dp)
+          )
+        }
+      }
+
       items.forEach { group ->
         stickyHeader {
           SidebarHeader(

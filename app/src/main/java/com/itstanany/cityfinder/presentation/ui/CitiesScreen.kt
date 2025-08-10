@@ -40,7 +40,8 @@ fun CitiesScreen(
           onQueryChanged = {
             viewModel.handleUiEvent(CityScreenUiEvents.SearchQueryChanged(it))
           },
-          searchQuery = state.query
+          searchQuery = state.query,
+          totalCities = state.totalCities
         )
       }
     }

@@ -2,4 +2,6 @@
     <string name="app_name">City Finder</string>
     <string name="no_app_store_or_browser_available_to_install_maps">No app store or browser available to install Maps</string>
     <string name="search">Search...</string>
+    <string name="city_search">City Search</string>
+    <string name="cities">%1$d Cities</string>
 </resources>

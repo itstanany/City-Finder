@@ -35,11 +35,12 @@ class CityScreenViewModel @Inject constructor(
           if (_uiState.value is CityScreenState.Success) {
             _uiState.update {
               (it as CityScreenState.Success).copy(
-                cities = mappedResult
+                cities = mappedResult,
+                totalCities = result.size
               )
             }
           } else {
-            _uiState.value = CityScreenState.Success(cities = mappedResult)
+            _uiState.value = CityScreenState.Success(cities = mappedResult, totalCities = result.size)
           }
         }
       }
@@ -62,7 +63,8 @@ class CityScreenViewModel @Inject constructor(
                   .map { (letter, cities) -> CityGroup(letter, cities.toImmutableList()) }
                   // if we don't have invariant that the result is always sorted
                   //,sortedBy { it.letter }
-                  .toImmutableList()
+                  .toImmutableList(),
+                totalCities = result.size
               )
             }
           }

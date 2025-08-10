@@ -8,7 +8,8 @@ sealed class CityScreenState {
   data object Loading : CityScreenState()
   data class Success(
     val cities: ImmutableList<CityGroup>,
-    val query: String = ""
+    val query: String = "",
+    val totalCities: Int
   ) : CityScreenState()
   data class Error(val message: String) : CityScreenState()
 }
