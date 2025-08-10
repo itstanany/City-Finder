@@ -30,7 +30,7 @@ fun CitiesScreen(
       }
 
       CityScreenState.Idle -> {
-//      TODO()
+        // render nothing for now
       }
 
       CityScreenState.Loading -> {
