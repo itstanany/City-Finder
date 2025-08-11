@@ -171,10 +171,9 @@ app/
 │   ├── repository/
 │   └── usecase/
 ├── presentation/
-│   ├── stateHolder/  # ViewModels
+│   ├── stateHolder/  # ViewModels, #CityScreenState
 │   ├── ui/           # Screens and Composables
-│   └── Events.kt
-└── di/               # Hilt modules
+│   ├── model/           # Ui models
 ```
 
 ---
@@ -189,4 +188,5 @@ app/
 
 
 ---
+
 
