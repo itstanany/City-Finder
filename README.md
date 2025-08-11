@@ -132,21 +132,6 @@ We’ve implemented **Refresh** as an enhancement to the user experience:
 
 ---
 
-## 📱 UI Features
-
-- **List grouping** by first letter with **sticky letter header** on the left.
-- **Vertical connector line** from header down through group rows.
-- **Animated Search Bar**:
-  - Expands/contracts on focus change
-  - Color changes for focus state
-- Smooth **animated transitions** between:
-  - Loading state
-  - Search results
-  - Empty results (no match)
-  - Error
-- **LazyColumn** ensures only visible list items are rendered, saving memory.
-
----
 
 ## ⚙️ Tech Stack
 
@@ -204,3 +189,4 @@ app/
 
 
 ---
+
