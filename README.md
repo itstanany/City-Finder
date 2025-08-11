@@ -5,9 +5,10 @@
 
 
 
-| Loading     | Home Screen | Search        | Pull to Refresh |
-|-------------|-------------|---------------|-----------------|
-| <img width="372" height="802" alt="loading" src="https://github.com/user-attachments/assets/f2ca3212-ee18-4aed-bd12-b6d9ae52316c" /> | <img width="428" height="826" alt="home-screen" src="https://github.com/user-attachments/assets/fdebef1e-d1f4-4d8d-b33e-02ad84ca6891" /> | <img width="397" height="828" alt="search" src="https://github.com/user-attachments/assets/b134b727-21ff-4b7d-9524-2eace1c4941b" /> | <img width="386" height="815" alt="pull to refresh" src="https://github.com/user-attachments/assets/f949f602-3b8f-448f-a88d-f9d10e64dc83" /> |
+| Loading     | Home Screen | Search        | Pull to Refresh | Error  |
+|-------------|-------------|---------------|-----------------|--------|
+| <img width="372" height="802" alt="loading" src="https://github.com/user-attachments/assets/f2ca3212-ee18-4aed-bd12-b6d9ae52316c" /> | <img width="428" height="826" alt="home-screen" src="https://github.com/user-attachments/assets/fdebef1e-d1f4-4d8d-b33e-02ad84ca6891" /> | <img width="397" height="828" alt="search" src="https://github.com/user-attachments/assets/b134b727-21ff-4b7d-9524-2eace1c4941b" /> | <img width="386" height="815" alt="pull to refresh" src="https://github.com/user-attachments/assets/f949f602-3b8f-448f-a88d-f9d10e64dc83" /> | <img width="388" height="788" alt="error" src="https://github.com/user-attachments/assets/d106d38f-3b61-4726-b3ac-8761d07581a9" /> |
+
 
 
 City Finder is a Kotlin + Jetpack Compose Android app implementing the Klivvr assignment requirements:
@@ -188,5 +189,6 @@ app/
 
 
 ---
+
 
 
