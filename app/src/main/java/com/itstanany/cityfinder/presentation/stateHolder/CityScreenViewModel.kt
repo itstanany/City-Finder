@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -26,6 +27,9 @@ class CityScreenViewModel @Inject constructor(
 ): ViewModel() {
   private val _uiState = MutableStateFlow<CityScreenState>(CityScreenState.Idle)
   val uiState = _uiState.asStateFlow()
+
+  private var searchJob: Job? = null
+  private var loadingDataJob: Job? = null
 
   fun handleUiEvent(events: CityScreenUiEvents) {
     when (events) {
@@ -70,7 +74,8 @@ class CityScreenViewModel @Inject constructor(
             it
           }
         }
-        viewModelScope.launch {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
           val result = searchCitiesByPrefixUseCase(events.query)
           when (result) {
             is Result.Error -> {
@@ -115,7 +120,8 @@ class CityScreenViewModel @Inject constructor(
    *  - It updates the UI state to `Error` with an appropriate error message obtained from `getErrMsg`.
    */
   private fun loadData() {
-    viewModelScope.launch {
+    loadingDataJob?.cancel()
+    loadingDataJob = viewModelScope.launch {
       val result = getAllCitiesUseCase()
       when (result) {
         is Result.Error -> {
